@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# ensure script was run with root privilages
+if [[ $EUID != 0 ]]; then
+	echo "Script must be run with root privilages!"
+	exit 1
+fi
+
+# make the program
+make clean
+make
+
+# create a symlink to add program to path
+sudo ln -s $PWD/mcg /usr/local/bin
+exit 0
