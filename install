@@ -1,15 +1,24 @@
 #!/bin/sh
 
-# ensure script was run with root privilages
-if [[ $EUID != 0 ]]; then
-	echo "Script must be run with root privilages!"
-	exit 1
-fi
-
 # make the program
 make clean
 make
 
 # create a symlink to add program to path
-sudo ln -s $PWD/mcg /usr/local/bin
+bin=/usr/local/bin
+path_to_script="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+sudo mkdir -p $bin
+if [[ -L "$bin/mcg"  ]]; then
+	echo ""
+	while true; do
+        read -p "mcg already exists in $bin. Remove it? [y/n]: " yn
+        case $yn in
+            [Yy]*) break  ;;  
+            [Nn]*) echo "Install failed. Exiting..."; exit 1 ;;
+        esac
+    done
+	sudo rm -f $bin/mcg
+fi
+sudo ln -s "$path_to_script/mcg" $bin
+echo "Installation complete."
 exit 0
