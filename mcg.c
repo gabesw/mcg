@@ -68,16 +68,16 @@ int main(int argc, char **argv)
 		grade = (nume/denom)*100;
 	}
 
-	//NOTE: this code will interpret 79.01 as an A- because its greater than 79 - FIX?
-	if(grade <= 49) {printf("F\n");}
-	else if(grade <= 54) {printf("D\n");}
-	else if(grade <= 59) {printf("C\n");}
-	else if(grade <= 64) {printf("C+\n");}
-	else if(grade <= 69) {printf("B-\n");}
-	else if(grade <= 74) {printf("B\n");}
-	else if(grade <= 79) {printf("B+\n");}
-	else if(grade <= 84) {printf("A-\n");}
-	else if(grade <= 100) {printf("A\n");}
+	// NOTE: Grades are not rounded so 84.6 is still considered an A-
+	if(grade >= 85) {printf("A\n");}
+	else if(grade >= 80) {printf("A-\n");}
+	else if(grade >= 75) {printf("B+\n");}
+	else if(grade >= 70) {printf("B\n");}
+	else if(grade >= 65) {printf("B-\n");}
+	else if(grade >= 60) {printf("C+\n");}
+	else if(grade >= 55) {printf("C\n");}
+	else if(grade >= 50) {printf("D\n");}
+	else {printf("F\n");}
 
 	return 0;
 }
